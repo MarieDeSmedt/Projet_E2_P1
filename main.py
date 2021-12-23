@@ -48,8 +48,12 @@ st.write('---')
 
 
 # Apply Model to Make Prediction
-loaded_model = pickle.load(open("finalized_model.sav", 'rb'))
-prediction = loaded_model.predict(df)
+def get_prediction(dataset):
+    loaded_model = pickle.load(open("finalized_model.sav", 'rb'))
+    prediction = loaded_model.predict(dataset)
+    return prediction
+
+prediction = get_prediction(df)
 
 formated_prediction = '${:,}'.format(int(prediction))
 st.header('Prediction du prix de vente')

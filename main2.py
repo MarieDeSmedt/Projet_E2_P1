@@ -36,7 +36,7 @@ if Age!=0 and GrLivArea!=0 and LotFrontage!=0 and LotArea!=0 and GarageArea!=0:
     # Apply Model to Make Prediction
     loaded_model = pickle.load(open("finalized_model.sav", 'rb'))
     prediction = loaded_model.predict(df)
-    formated_prediction = '{:,}€'.format(int(prediction))
+    formated_prediction = '{:,}$'.format(int(prediction))
 else: 
     error='veuillez remplir tous les critères'
     features_ok = False

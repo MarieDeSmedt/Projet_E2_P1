@@ -34,7 +34,7 @@ if Age!=0 and GrLivArea!=0 and LotFrontage!=0 and LotArea!=0 and GarageArea!=0:
     df = create_dataset(Age,GrLivArea,LotFrontage,LotArea,GarageArea,Fence,Pool)
     features_ok = True
     # Apply Model to Make Prediction
-    loaded_model = pickle.load(open("finalized_model.sav", 'rb'))
+    loaded_model = pickle.load(open("last_model.sav", 'rb'))
     prediction = loaded_model.predict(df)
     formated_prediction = '{:,}$'.format(int(prediction))
 else: 

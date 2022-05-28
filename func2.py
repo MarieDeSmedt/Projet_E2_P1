@@ -5,22 +5,22 @@ import pickle
 
 def user_input_features(): 
     
-    YearBuilt = st.sidebar.number_input('Année de construction', step=1)
-    reno = st.sidebar.checkbox('Cochez si vous fait des rénovations')
+    YearBuilt = st.sidebar.number_input('Année de construction (obligatoire)', step=1)
+    reno = st.sidebar.checkbox('Cochez si vous avez fait des rénovations')
     if reno:
         YearRemodAdd= st.sidebar.number_input('Date de rénovation', step=1) 
     else:
         YearRemodAdd=YearBuilt
 
-    LotArea = st.sidebar.number_input('Surface totale en pi²')
+    LotArea = st.sidebar.number_input('Surface totale en pi² (obligatoire)')
     GrLivArea = st.sidebar.number_input('Surface au sol en pi²')
     TotalBsmtSF= st.sidebar.number_input('Surface du sous-sol en pi²')
     FstFlrSF= st.sidebar.number_input('Surface du rez-de-chaussée en pi²')
     SndFlrSF= st.sidebar.number_input('Surface du premier étage en pi²')    
     LotFrontage = st.sidebar.number_input('Taille de la façade en pi²')
     
-    TotRmsAbvGrd= st.sidebar.number_input('Nombre de pièces hors sous-sol et hors salles de bain', step=1)
-    FullBath = st.sidebar.number_input('Nombre de salles de bains', step=1)
+    TotRmsAbvGrd= st.sidebar.number_input('Nombre de pièces hors sous-sol et hors salles de bain (obligatoire)', step=1)
+    FullBath = st.sidebar.number_input('Nombre de salles de bains (obligatoire)', step=1)
     BedroomAbvGr = st.sidebar.number_input('Nombre de chambres', step=1)
     KitchenAbvGr = st.sidebar.number_input('Nombre de cuisines', step=1)
     Fireplaces = st.sidebar.number_input('Nombre de cheminées', step=1)
@@ -62,11 +62,7 @@ def user_input_features():
     Fence = st.sidebar.checkbox('Cochez cette case si votre terrain est cloturé')
     Pool = st.sidebar.checkbox('Cochez cette case si vous possédez une piscine')
 
-    return ScreenPorch,OpenPorchSF,WoodDeckSF,EnclosedPorch,GarageCars,Fireplaces,YearBuilt,YearRemodAdd,LotArea,GrLivArea,TotalBsmtSF,FstFlrSF,SndFlrSF,LotFrontage,GarageArea,TotRmsAbvGrd,FullBath,BedroomAbvGr,KitchenAbvGr,Fence,Pool
-   
-
-def create_dataset(ScreenPorch,OpenPorchSF,WoodDeckSF,EnclosedPorch,GarageCars,Fireplaces,YearBuilt,YearRemodAdd,LotArea,GrLivArea,TotalBsmtSF,FstFlrSF,SndFlrSF,LotFrontage,GarageArea,TotRmsAbvGrd,FullBath,BedroomAbvGr,KitchenAbvGr,Fence,Pool):
-    data = {
+    features_dict = {
         'ScreenPorch':ScreenPorch,
         'OpenPorchSF':OpenPorchSF,
         'WoodDeckSF':WoodDeckSF,
@@ -88,8 +84,12 @@ def create_dataset(ScreenPorch,OpenPorchSF,WoodDeckSF,EnclosedPorch,GarageCars,F
         'KitchenAbvGr':KitchenAbvGr,
         'Fence': Fence,
         'Pool' : Pool
-        }
-    dataset = pd.DataFrame(data, index=[0])
+    }
+    return features_dict
+   
+
+def create_dataset(features_dict):
+    dataset = pd.DataFrame(features_dict, index=[0])
     return dataset
 
 def get_prediction(dataset):
